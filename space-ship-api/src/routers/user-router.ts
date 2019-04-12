@@ -1,5 +1,7 @@
 import express from 'express';
 import { users } from '../state';
+import { reimstats } from '../state';
+import { reim } from '../state';
 import { User } from '../model/user';
 import { authMiddleware } from '../middleware/auth.middleware';
 
@@ -10,11 +12,25 @@ import { authMiddleware } from '../middleware/auth.middleware';
 export const userRouter = express.Router();
 
 
+
+userRouter.post('/login', (req, res) => {// /login
+  const { username, password } = req.body;
+  const user = users.find(u => u.username === username && u.password === password);
+console.log('logging in');
+  if (user) {
+    // attach the user data to the session object
+    req.session.user = user;
+    res.end();
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 /**
  * find all users
  * endpoint: /users
  */
-userRouter.get('', [
+userRouter.get('/all', [// /users
   authMiddleware(['admin']),
   (req, res) => {
     console.log('retreiving all users');
@@ -25,9 +41,9 @@ userRouter.get('', [
  * find user by id
  * endpoint: /users/:id
  */
-userRouter.get('/:id', (req, res) => {
+userRouter.get('/:id', (req, res) => {// /users/id
   const id: number = +req.params.id;
-  console.log(`retreiving user with id: Hello? ${id}`);
+  console.log(`retreiving user with id:? ${id}`);
   const user = users.find(u => u.userId === id);
   if (user) {
     res.json(user);
@@ -36,21 +52,10 @@ userRouter.get('/:id', (req, res) => {
   }
 });
 
-
-userRouter.post('', (req, res) => {
-  console.log(`creating user`, req.body);
-  const user: User = req.body;
-  user.userId = Math.floor(Math.random() * 10000000);
-  users.push(user);
-  res.status(201);
-  res.send(user);
-});
-
-userRouter.patch('', (req, res) => {
+userRouter.patch('', (req, res) => {// patch
   const { body } = req; // destructuring
   console.log(`updating user`, body);
   const user = users.find((u) => {
-    // console.log(`u = `, u);
     return u.userId === body.userId;
   });
   if (!user) {
@@ -63,19 +68,33 @@ userRouter.patch('', (req, res) => {
     }
     res.json(user);
   }
-
 });
 
+userRouter.get('/reimbursements/status/:statusId', [// /reimbursements status
+  authMiddleware(['finance-manager']),
+  (req, res) => {
+    console.log('retreiving all reimbursements status');
+    res.json(reimstats);
+  }]);
 
-userRouter.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const user = users.find(u => u.username === username && u.password === password);
+  userRouter.get('/reimbursements/author/userId/:userId', [// /reimbursements
+    authMiddleware(['finance-manager']),
+    (req, res) => {
+      console.log('retreiving all reimbursements status');
+      res.json(reim);
+    }]);
 
-  if (user) {
-    // attach the user data to the session object
-    req.session.user = user;
-    res.end();
-  } else {
-    res.sendStatus(401);
-  }
+    userRouter.post('/reimbursements', [// /reimbursements
+      authMiddleware(['finance-manager']),
+      (req, res) => {
+        console.log('retreiving all reimbursements status');
+      }]);
+
+userRouter.post('', (req, res) => {
+  console.log(`creating user`, req.body);
+  const user: User = req.body;
+  user.userId = Math.floor(Math.random() * 10000000);
+  users.push(user);
+  res.status(201);
+  res.send(user);
 });

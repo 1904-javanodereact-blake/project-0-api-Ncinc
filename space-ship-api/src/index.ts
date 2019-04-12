@@ -26,6 +26,6 @@ app.use('/users', userRouter);
 app.use('/spaceships', spaceshipRouter);
 
 // start up the application
-app.listen(8070, () => {
+app.listen(8080, () => {
   console.log(`application started`);
 });
