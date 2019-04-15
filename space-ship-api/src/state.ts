@@ -2,9 +2,6 @@ import { User } from './model/user';
 import { Spaceship } from './model/spaceship';
 import { ReimbursementrStatus } from './model/ReimbursementrStatus';
 import { Reimbursement } from './model/Reimbursement';
-// import { Role } from './model/Role';
-
-
 // export let users: User[] = [
 //   new User(1, 'blake', 'pass', 'blake', 'admin'),
 //   new User(2, 'Bradley', 'pass', 'Bradley'),
@@ -21,14 +18,12 @@ import { Reimbursement } from './model/Reimbursement';
 // new User(5, 'Diana', 'pass', 'Diana', 'Prince', 'amazon@email.com', Role)];
 
 export let users: User[] = [
-new User(1, 'Nick', 'pass', 'Nicholas', 'Cordon', 'emai@email.com',
-'admin'),
+new User(1, 'Nick', 'pass', 'Nicholas', 'Cordon', 'emai@email.com'),
 new User(2, 'Bruce', 'pass', 'Bruce', 'Wayne', 'bat@email.com'),
 new User(3, 'Wally', 'pass', 'Wally', 'West', 'flash@email.com'),
 new User(4, 'John', 'pass', 'John', 'Jones', 'martin@email.com'),
-new User(5, 'Diana', 'pass', 'Diana', 'Prince', 'amazon@email.com', 'finance-manager'),
-new User(6, 'Blake', 'pass', 'Blake', 'Kruppa', 'revature@email.com',
-'finance-manager')];
+new User(5, 'Diana', 'pass', 'Diana', 'Prince', 'amazon@email.com'),
+new User(6, 'John', 'pass', 'John', 'Stewart', 'revature@email.com')];
 
 export let spaceships: Spaceship[] = [
   new Spaceship(1, 2, 'Enterprise', 5000, 5000, 'its a ship'),

@@ -3,7 +3,7 @@ export class Role {
     role: string;
     roleId: number;
 
-    constructor(role = '', roleid = 0) {
+    constructor(role = '', roleid: number) {
         this.role = role;
         this.roleId = roleid;
         }

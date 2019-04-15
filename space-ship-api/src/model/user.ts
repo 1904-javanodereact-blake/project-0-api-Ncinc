@@ -15,28 +15,26 @@
 //   }
 // }
 
-// import { Role } from './Role';
-
+import { Role } from './Role';
 export class User {
         userId: number; // primary key
         username: string; // not null, unique
-        password: string; // not null
+        user_password: string; // not null
         firstName: string; // not null
         lastName: string; // not null
         email: string; // not null
-        // role: Role; // will pass in role
-        role: string;
+        user_role: Role; // will pass in role
 
             constructor(userId = 0, username = '',
             password = '', firstName = '',
             lastName = '', email = '',
-            role = 'associate') {// role){
+            user_role: Role = undefined) {// role){
                 this.userId = userId;
                 this.username = username;
-                this.password = password;
+                this.user_password = password;
                 this.firstName = firstName;
                 this.lastName = lastName;
                 this.email = email;
-                this.role = role;
+                this.user_role = user_role;
           }
       }

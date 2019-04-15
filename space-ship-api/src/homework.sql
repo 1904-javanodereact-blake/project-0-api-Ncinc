@@ -39,30 +39,71 @@ SET name = 'CCR'
 WHERE artistid = 76;
 -- 2.5 LIKE
 -- Task – Select all invoices with a billing address like “T%”
+Select * From invoice where billingaddress like 'T%'
 -- 2.6 BETWEEN
 -- Task – Select all invoices that have a total between 15 and 50
+Select * From invoice where total between 15 and 50
 -- Task – Select all employees hired between 1st of June 2003 and 1st of March 2004
+SELECT * FROM employee Where hiredate between timestamp '2003-1-1' and timestamp '2004-3-1'
 -- 2.7 DELETE
 -- Task – Delete a record in Customer table where the name is Robert Walter (There may be constraints that rely on this, find out how to resolve them).
+
+Alter Table invoice
+	drop constraint fk_invoicecustomerid;
+
+Alter Table invoice
+	ADD constraint fk_customer_id
+	foreign key (customerid) References chinook.customer (customerid) on delete cascade;
+
+Alter Table invoiceline 
+	drop constraint fk_invoicelineinvoiceid	
+
+Alter Table invoiceline 
+	ADD constraint fk_invoiceline_id
+	foreign key (invoiceid) References chinook.invoice (invoiceid) on delete cascade;
+
+	Delete From customer 
+	where firstname = 'Robert' and lastname = 'Walter';
 
 -- 3.0	SQL Functions
 -- In this section you will be using the Oracle system functions, as well as your own functions, to perform various actions against the database
 -- 3.1 System Defined Functions
 -- Task – Use a function that returns the current time.
+SELECT NOW();
 -- Task – Use a function that returns the length of a mediatype from the mediatype table
+SELECT mediatype.name, LENGTH(mediatype.name) AS lengthofmediatype
+FROM mediatype;
 -- 3.2 System Defined Aggregate Functions
 -- Task – Use a function that returns the average total of all invoices
+SELECT AVG(invoice.total)
+FROM invoice
 -- Task – Use a function that returns the most expensive track
+select * from track where unitprice in(
+SELECT MAX(unitprice) AS LargestPrice
+FROM track)
 -- 7.0 JOINS
 -- In this section you will be working with combing various tables through the use of joins. You will work with outer, inner, right, left, cross, and self joins.
 -- 7.1 INNER
 -- Task – Create an inner join that joins customers and orders and specifies the name of the customer and the invoiceId.
+Select customer.customerid, invoice.invoiceid
+FROM invoice INNER JOIN customer ON customer.customerid = invoice.invoiceid;
 -- 7.2 OUTER
 -- Task – Create an outer join that joins the customer and invoice table, specifying the CustomerId, firstname, lastname, invoiceId, and total.
+Select customer.customerid, customer.firstname, customer.lastname,
+invoice.invoiceid, invoice.total
+FROM invoice full Outer JOIN customer ON customer.customerid = invoice.invoiceid;
 -- 7.3 RIGHT
 -- Task – Create a right join that joins album and artist specifying artist name and title.
+
+select artist.name, album.title
+from artist right join album on artist.name = album.title;
 -- 7.4 CROSS
 -- Task – Create a cross join that joins album and artist and sorts by artist name in ascending order.
+SELECT * FROM artist
+CROSS JOIN album Order By artist.name ASC;
+
 -- 7.5 SELF
 -- Task – Perform a self-join on the employee table, joining on the reportsto column.
+Select * from employee as worker
+inner join employee as leader on worker.employeeid = leader.reportsto
 
