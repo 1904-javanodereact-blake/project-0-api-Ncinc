@@ -48,6 +48,8 @@ SELECT * FROM employee Where hiredate between timestamp '2003-1-1' and timestamp
 -- 2.7 DELETE
 -- Task – Delete a record in Customer table where the name is Robert Walter (There may be constraints that rely on this, find out how to resolve them).
 
+set schema 'chinook';
+
 Alter Table invoice
 	drop constraint fk_invoicecustomerid;
 
@@ -56,7 +58,7 @@ Alter Table invoice
 	foreign key (customerid) References chinook.customer (customerid) on delete cascade;
 
 Alter Table invoiceline 
-	drop constraint fk_invoicelineinvoiceid	
+	drop constraint fk_invoicelineinvoiceid;
 
 Alter Table invoiceline 
 	ADD constraint fk_invoiceline_id
@@ -64,7 +66,6 @@ Alter Table invoiceline
 
 	Delete From customer 
 	where firstname = 'Robert' and lastname = 'Walter';
-
 -- 3.0	SQL Functions
 -- In this section you will be using the Oracle system functions, as well as your own functions, to perform various actions against the database
 -- 3.1 System Defined Functions
