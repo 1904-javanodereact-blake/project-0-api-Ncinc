@@ -43,15 +43,15 @@ userRouter.get('/all',  [authMiddleware(['admin']), async  (req, res) => {
 
 
 
-// userRouter.get('/:userid', [ authMiddleware(['admin', 'finance']), async (req, res) => {
-
-//   res.json(await userDao.findById(+req.params.userid));
-// }]);
-
-userRouter.get('/:userid', async (req, res) => {
+userRouter.get('/:userid', [ authMiddleware(['admin', 'finance']), async (req, res) => {
 
   res.json(await userDao.findById(+req.params.userid));
-});
+}]);
+
+// userRouter.get('/:userid', async (req, res) => {
+
+//   res.json(await userDao.findById(+req.params.userid));
+// });
 
 userRouter.post('/login', async (req, res) => {// /login
   const { username, password } = req.body;
