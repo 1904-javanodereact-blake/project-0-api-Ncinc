@@ -5,7 +5,7 @@ import { sessionMiddleware } from './middleware/session.middleware';
 import { reimRouter } from './routers/reim-router';
 
 const app = express();
-const port = process.env.REPAY_DB_PORT || 8080;
+const port = process.env.REPAY_DB_PORT || 8081;
 
 app.use((req, res, next) => {
   console.log(`request made with url: ${req.url} and method: ${req.method}`);
@@ -25,6 +25,7 @@ app.use(sessionMiddleware);
  */
 app.use('/users', userRouter);
 app.use('/reim', reimRouter);
+//ssh -i 1904.pem ec2-user@ec2-3-17-68-132.us-east-2.compute.amazonaws.com
 
 // start up the application
 // app.listen(8070, () => {
