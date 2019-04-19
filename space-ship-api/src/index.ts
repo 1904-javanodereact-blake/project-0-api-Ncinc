@@ -5,7 +5,7 @@ import { sessionMiddleware } from './middleware/session.middleware';
 import { reimRouter } from './routers/reim-router';
 
 const app = express();
-const port = process.env.REPAY_DB_PORT || 8081;
+const port = process.env.REPAY_DB_PORT || 8080;
 
 app.use((req, res, next) => {
   console.log(`request made with url: ${req.url} and method: ${req.method}`);
