@@ -22,7 +22,7 @@ export const userRouter = express.Router();
 
 /////////////////////////////////////////////////////////////////
 
-userRouter.get('/all',  [authMiddleware(['admin']), async  (req, res) => {
+userRouter.get('/all', async  (req, res) => {
   const users = await userDao.findAllReimbursmentUsers();
   if (users) {
     console.log('I found users');
@@ -32,7 +32,9 @@ userRouter.get('/all',  [authMiddleware(['admin']), async  (req, res) => {
 
   console.log('retreiving all users');
   res.json(users);
-}]);
+});
+
+// [authMiddleware(['admin']),
 
 // userRouter.get('/:userid', async (req, res) => {
 //   res.json(await userDao.findById(+req.params.ownerId));
