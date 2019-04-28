@@ -55,19 +55,19 @@ userRouter.get('/:userid', [ authMiddleware(['admin', 'finance']), async (req, r
 //   res.json(await userDao.findById(+req.params.userid));
 // });
 
-userRouter.post('/login', async (req, res) => {// /login
-  const { username, password } = req.body;
-  console.log('hello login');
-  const users = await userDao.findByUsernameAndPassword(username, password);
-console.log('logging in');
-  if (users) {
-    // attach the user data to the session object
-    req.session.user = users;
-    res.end();
-  } else {
-    res.sendStatus(401);
-  }
-});
+// userRouter.post('/login', async (req, res) => {// /login
+//   const { username, password } = req.body;
+//   console.log('hello login');
+//   const users = await userDao.findByUsernameAndPassword(username, password);
+// console.log('logging in');
+//   if (users) {
+//     // attach the user data to the session object
+//     req.session.user = users;
+//     res.end();
+//   } else {
+//     res.sendStatus(401);
+//   }
+// });
 
 // function to patch/update a user in the database.
 userRouter.patch('',  [

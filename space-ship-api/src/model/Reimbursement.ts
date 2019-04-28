@@ -1,5 +1,5 @@
 export class Reimbursement {
-    reimbursementId: number; // primary key
+    reimbursementlistid: number; // primary key
     author: number;  // foreign key -> User, not null
     amount: number; // not null
     date_submitted: string; // not null
@@ -9,11 +9,11 @@ export class Reimbursement {
     status: number; // foreign ey -> ReimbursementStatus, not null
     type: number; // foreign key -> ReimbursementType
 
-    constructor (reimbursementId = 0, author = 0, amount= 0,
+    constructor (reimbursementlistid = 0, author = 0, amount= 0,
         date_submitted= '', date_resolved= '', description = '',
         resolver = 0, status = 0, type = 0) {
 
-            this.reimbursementId = reimbursementId;
+            this.reimbursementlistid = reimbursementlistid;
             this.author = author;
             this.amount = amount;
             this.date_submitted = date_submitted;
@@ -22,6 +22,5 @@ export class Reimbursement {
             this.resolver = resolver;
             this.status = status;
             this.type = type;
-
     }
   }

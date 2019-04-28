@@ -85,9 +85,8 @@
     let client: PoolClient;
     try {
       client = await connectionPool.connect();
-      const queryString = 'SELECT * FROM reimbursement.reimbursement as reim WHERE author = $1 ORDER BY date_submitted ASC';
+      const queryString = 'SELECT * FROM reimbursement.reimbursementlist as reim WHERE author = $1 ORDER BY date_submitted ASC';
       const result = await client.query(queryString, [author_id]);
-      // convert db results into actual spaceships
        const authorsid = result.rows;
        console.log(result.rows);
       return authorsid;
@@ -103,7 +102,7 @@
     let client: PoolClient;
     try {
       client = await connectionPool.connect();
-      const queryString = 'SELECT * FROM reimbursement.reimbursement as reim WHERE status = $1 ORDER BY date_submitted ASC';
+      const queryString = 'SELECT * FROM reimbursement.reimbursementlist as reim WHERE status = $1 ORDER BY date_submitted ASC';
       const result = await client.query(queryString, [status_id]);
       // convert db results into actual spaceships
        const statussid = result.rows;
@@ -118,22 +117,22 @@
   }
 
 
-  // export async function findById4(reimbursementlistid: number) {
-  //   let client: PoolClient;
-  //   try {
-  //     client = await connectionPool.connect();
-  //     const queryString = 'SELECT * FROM reimbursement.reimbursementlist WHERE reimbursementlistid = $1 ';
-  //     const result = await client.query(queryString, [reimbursementlistid]);
-  //      const reim = result.rows;
-  //      console.log(result.rows);
-  //     return reim;
-  //   } catch (err) {
-  //     console.log(err);
-  //     return undefined;
-  //   } finally {
-  //     client && client.release();
-  //   }
-  // }
+  export async function findById4(reimbursementlistid: number) {
+    let client: PoolClient;
+    try {
+      client = await connectionPool.connect();
+      const queryString = 'SELECT * FROM reimbursement.reimbursementlist WHERE reimbursementlistid = $1 ';
+      const result = await client.query(queryString, [reimbursementlistid]);
+       const reim = result.rows[0];
+       console.log(result.rows);
+      return reim;
+    } catch (err) {
+      console.log(err);
+      return undefined;
+    } finally {
+      client && client.release();
+    }
+  }
 
   export async function updateUsernames(userid, username, user_password,
     firstname, lastname, email, roleid) {
@@ -157,23 +156,23 @@
     }
   }
 
-  // export async function updateReimbursement( reimbursementlistid, author, amount,
-  //   date_submitted, date_resolved, description, resolver, status, type) {
-  //     console.log('hello');
-  //   let client: PoolClient;
-  //   try {
-  //     client = await connectionPool.connect();
-  //     const queryString = `UPDATE reimbursement.reimbursementlist
-  //     SET author = $2, amount = $3,
-  //     date_submitted = $4, date_resolved = $5, description = $6,
-  //     resolver = $7, status = $8, type = $9,
-  //     WHERE reimbursementlistid = $1;`;
-  //     await client.query(queryString, [reimbursementlistid, author, amount,
-  //       date_submitted, date_resolved, description, resolver, status, type]);
-  //   } catch (err) {
-  //     console.log(err);
-  //     return undefined;
-  //   } finally {
-  //     client && client.release();
-  //   }
-  // }
+  export async function updateReimbursement( reimbursementlistid, author, amount,
+    date_submitted, date_resolved, description, resolver, status, type) {
+      console.log('hello');
+    let client: PoolClient;
+    try {
+      client = await connectionPool.connect();
+      const queryString = `UPDATE reimbursement.reimbursementlist
+      SET author = $2, amount = $3,
+      date_submitted = $4, date_resolved = $5, description = $6,
+      resolver = $7, status = $8, type = $9
+      WHERE reimbursementlistid = $1;`;
+      await client.query(queryString, [reimbursementlistid, author, amount,
+        date_submitted, date_resolved, description, resolver, status, type]);
+    } catch (err) {
+      console.log(err);
+      return undefined;
+    } finally {
+      client && client.release();
+    }
+  }
