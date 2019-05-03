@@ -18,15 +18,15 @@ reimRouter.get('/status/:statusId', [ authMiddleware(['admin', 'finance']), asyn
   }]);
 
   // auth
-  // reimRouter.get('/author/userId/:userId', [ authMiddleware(['admin', 'finance']), async (req, res) => {
-
-  //   res.json(await userDao.findByAuthor(+req.params.userId));
-  // }]);
-
-  reimRouter.get('/author/userId/:userId', async (req, res) => {
+  reimRouter.get('/author/userId/:userId', [ authMiddleware(['admin', 'finance']), async (req, res) => {
 
     res.json(await userDao.findByAuthor(+req.params.userId));
-  });
+  }]);
+
+  // reimRouter.get('/author/userId/:userId', async (req, res) => {
+
+  //   res.json(await userDao.findByAuthor(+req.params.userId));
+  // });
 
   reimRouter.patch('/update',  [ authMiddleware(['admin']),
     async(req, res) => {

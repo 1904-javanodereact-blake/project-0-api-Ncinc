@@ -23,7 +23,7 @@
     try {
       client = await connectionPool.connect();
       const queryString = `SELECT * FROM reimbursement.app_user as us
-      INNER JOIN reimbursement.user_role as ro ON (us.roleid = ro.roleid)`;
+      INNER JOIN reimbursement.user_role as ro ON (us.roleid = ro.roleid) ORDER BY userid ASC`;
       const result = await client.query(queryString);
       const users = result.rows.map(convertSqlUser);
       for (let i = 0; i < result.rows.length; i++) {
